@@ -81,14 +81,17 @@ export default function Home() {
                 variant="outline"
                 className="border-white bg-white/20 text-white hover:bg-white/40 text-lg px-6 py-6"
                 onClick={() => {
-                  document.getElementById("contacto").scrollIntoView({ behavior: "smooth" })
-                  setTimeout(() => {
-                    const messageField = document.getElementById("message")
-                    if (messageField) {
-                      messageField.value = "Solicito una recolección para mi"
-                      messageField.focus()
-                    }
-                  }, 800)
+                  const contactoElement = document.getElementById("contacto")
+                  if (contactoElement) {
+                    contactoElement.scrollIntoView({ behavior: "smooth" })
+                    setTimeout(() => {
+                      const messageField = document.getElementById("message") as HTMLTextAreaElement | null
+                      if (messageField) {
+                        messageField.value = "Solicito una recolección para mi"
+                        messageField.focus()
+                      }
+                    }, 800)
+                  }
                 }}
               >
                 Solicitar Recolección
@@ -130,7 +133,7 @@ export default function Home() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/imagenes/organisacion.jpg"
+                  src="/imagenes/sello.png"
                   alt="Sello Metales de Santander"
                   width={600}
                   height={600}
@@ -490,10 +493,15 @@ export default function Home() {
                   className="space-y-4"
                   onSubmit={(e) => {
                     e.preventDefault()
-                    const name = document.getElementById("name")?.value || ""
-                    const company = document.getElementById("company")?.value || ""
-                    const email = document.getElementById("email")?.value || ""
-                    const message = document.getElementById("message")?.value || ""
+                    const nameElement = document.getElementById("name") as HTMLInputElement | null
+                    const companyElement = document.getElementById("company") as HTMLInputElement | null
+                    const emailElement = document.getElementById("email") as HTMLInputElement | null
+                    const messageElement = document.getElementById("message") as HTMLTextAreaElement | null
+
+                    const name = nameElement?.value || ""
+                    const company = companyElement?.value || ""
+                    const email = emailElement?.value || ""
+                    const message = messageElement?.value || ""
 
                     const whatsappMessage = `*Mensaje desde el sitio web*%0A%0A${message}${name ? "%0A%0A*Nombre:* " + name : ""}${company ? "%0A*Empresa:* " + company : ""}${email ? "%0A*Email:* " + email : ""}`
 
